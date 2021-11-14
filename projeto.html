@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <title>Projeto</title>
+    <link href="//db.onlinewebfonts.com/c/55d433372d270829c51e2577a78ef12d?family=Monument+Extended" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="projeto.css">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="projeto.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>CadNime</h1>
+    </header>
+    <section>
+      <div class="container" id="main">
+        <h2>Cadastro de Animes</h2>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="titulo">Título*:</label>
+              <input type="text" id="titulo" name="titulo" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="ano">Ano de Lançamento*:</label>
+              <input type="text" id="ano" name="ano" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="episodios">Episodios:</label>
+              <input type="text" id="episodios" name="episodios" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="generos">Gêneros*:</label>
+              <input type="text" id="generos" name="generos" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="categoria">Categoria*:</label><br>
+              <select name="categoria" id="categoria">
+                <option value="anime">Anime</option>
+                <option value="mangá">Mangá</option>
+                <option value="light novel">Light Novel</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="score">Score:</label>
+              <input type="text" id="score" name="score" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="image">Imagem:</label>
+              <input type="url" id="image" name="image" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="sinopse">Sinopse:</label>
+              <textarea id="sinopse" name="sinopse" class="form-control" rows="6" spellcheck="false" style="resize: none;"></textarea>
+            </div>
+            <div class="form-group">
+              <button id="btnSalvar" class="btn btn-primary">Cadastrar</button>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="overflow-auto" id="div-animes">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer>
+      <ul class="footer">
+        <li><p>&copy; 2021 - CadNime</p></li>
+        <li><a href="https://github.com/Bielgomes" target="_blank"><img src="https://media.discordapp.net/attachments/813800811745247283/903127589332332574/pngegg.png" alt="Github Icon" width="65px"></a></li>
+      </ul>
+    </footer>
+  </body>
+</html>

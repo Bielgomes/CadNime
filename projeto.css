@@ -1,0 +1,139 @@
+:root {
+  --color-primary: #E5E5E5;
+  --color-secondary: #212121;
+  --color-anime: #170B20;
+}
+
+body {
+  background-color: #170B20;
+  color: white;
+  font-weight: bold;
+}
+
+header h1 {
+  font-size: 70px;
+  font-family: 'Monument Extended';
+  color: var(--color-primary);
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 150px;
+  background-color: var(--color-secondary);
+  margin-bottom: 20px;
+  background: url(./assets/banner_header.png) center;
+  background-position-y:-150px;
+}
+
+footer {
+  height: 150px;
+  background-color: var(--color-secondary);
+  margin-top: 20px;
+  background: url(./assets/banner_footer.png) center bottom;
+  background-position-y:-210px;
+  font-size: 20px
+}
+
+#main {
+  border-radius: 10px;
+  background-color: #170B2D;
+  padding: 20px 25px;
+}
+
+
+button {
+  margin-top: 18px;
+  width: 100%;
+}
+
+select {
+  border: 1px solid #CED4DA;
+  border-radius: .25rem;
+  width: 100%;
+  padding: 6px 10px;
+}
+
+h3 {
+  color: #D2004B;
+  font-size: 50px;
+} 
+
+.form-group {
+  padding: 10px 0;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  list-style-type: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.container-animes {
+  margin-top: 28px;
+  background-color: var(--color-anime);
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.fields-animes {
+  display: block;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+  background-color: #170B2D;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 10px;
+  text-align: justify;
+}
+
+.head-animes {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  position: relative;
+}
+
+.genero-main {
+  position: absolute;
+  background-color: #D2004B;
+  border-radius: 10px;
+  padding: 0px 20px;
+  bottom: -7px;
+}
+
+.img-animes {
+  border-radius: 15px;
+  margin-bottom: 10px;
+  width: 225px;
+  height: auto;
+}
+
+.score {
+  color: #FFC400;
+}
+
+.field-generos {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.generos {
+  background-color: #D2004B;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin-right: 5px;
+}
+
+.btns-animes {
+  display: flex;
+}
+
+.btn-animes {
+  margin: 10px;
+}
