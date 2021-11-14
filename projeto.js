@@ -64,7 +64,6 @@ function getStars(score) {
     auxScore += '<ion-icon name="star"></ion-icon>'
     auxStars -= 1
   }
-  console.log(Number(score))
   if (Number(score) === score && score % 1 !== 0) {
     auxScore += '<ion-icon name="star-half"></ion-icon>'
     auxStars -= 1
