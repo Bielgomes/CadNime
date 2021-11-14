@@ -11,41 +11,17 @@ class Anime {
   }
 }
 
-// var listaAnimes = [{
-//   "titulo": "Sword Art Online",
-//   "ano": "2012",
-//   "episodios": "25",
-//   "generos": "Ação, Aventura, Fantasia, Romance",
-//   "categoria": "anime",
-//   "score": "7.2",
-//   "image": "https://cdn.myanimelist.net/images/anime/11/39717.jpg",
-//   "sinopse": 'Kazuto Kirigaya, apelidado de "Kirito", está entre os poucos entusiastas sortudos que colocaram as mãos na primeira remessa do jogo. Ele se conecta para se encontrar, com dez mil outras pessoas, no mundo cênico e elaborado de Aincrad, um mundo cheio de fantásticas armas medievais e monstros horríveis. No entanto, em uma virada cruel de eventos, os jogadores logo percebem que não podem sair; o criador do jogo os prendeu em seu novo mundo até que completem todos os cem níveis do jogo.'
-// },
-// {
-//   "titulo": "Komi-san wa, Comyushou desu",
-//   "ano": "2021",
-//   "episodios": "Indefinido  ",
-//   "generos": "Comédia, Slice of Life",
-//   "categoria": "anime",
-//   "score": "8.3",
-//   "image": "https://cdn.myanimelist.net/images/anime/1899/117237.jpg",
-//   "sinopse": "Hitohito Tadano é um garoto comum que entra em seu primeiro dia de escola com um plano claro: evitar problemas e fazer o melhor para se misturar com os outros. Infelizmente, ele falha imediatamente ao se sentar ao lado da madona da escola - Shouko Komi. Seus colegas agora o reconhecem como alguém a ser eliminado por uma chance de sentar ao lado da garota mais bonita da classe."
-// },
-// {
-//   "titulo": "Saihate no Paladin",
-//   "ano": "2021",
-//   "episodios": "Indefinido",
-//   "generos": "Aventura, Fantasia",
-//   "categoria": "anime",
-//   "score": "7.4",
-//   "image": "https://cdn.myanimelist.net/images/anime/1176/118382.jpg",
-//   "sinopse": "À medida que Will cresce e aprende sobre o mundo em que nasceu, ele se prepara para o dia em que deve finalmente partir sozinho. Para Will, essa jornada inclui uma promessa para toda a vida. Ao atingir a maioridade, todo adulto é obrigado a fazer um juramento ao deus de sua escolha, com a força da promessa afetando o grau da bênção de seu deus jurado."
-// }]
-
 var listaAnimes = []
 
 function capitalize(string) {
   return string.charAt(0).toUpperCase() + string.slice(1)
+}
+
+function limparCampos() {
+  $('input').val('')
+  $('textarea').val('')
+  $('#btnSalvar').text("Cadastrar")
+  $('#btnSalvar').removeAttr('data-edit')
 }
 
 function cadastrar(objeto, lista) {
@@ -169,16 +145,13 @@ $(document).ready(() => {
         cadastrar(anime, listaAnimes)
       } else {
         listaAnimes[index] = anime
-        $('#btnSalvar').removeAttr('data-edit')
-        $('#btnSalvar').text("Cadastrar")
       }
 
       $('#div-animes').html(listar(listaAnimes))
 
       addEvent()
 
-      $('input').val('')
-      $('textarea').val('')
+      limparCampos()
     } else {
       alert('Preencha os campos obrigatórios')
     }
@@ -215,6 +188,10 @@ $(document).ready(() => {
       $('#div-animes').html(listar(listaAnimes))
 
       addEvent()
+
+      const edit = Number($('#btnSalvar').attr('data-edit'))
+
+      if (edit == index) limparCampos()
     })
   }
   function imageError() {
