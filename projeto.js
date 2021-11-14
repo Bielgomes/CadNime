@@ -142,6 +142,7 @@ $(document).ready(() => {
     
     let titulo = $('#titulo').val()
     let ano = $('#ano').val()
+    if (ano < 1900 || ano > 2100) return alert('Ano inválido')
     let episodios = $('#episodios').val()
     let generos = $('#generos').val()
     let categorias = $('#categoria').val()
@@ -154,7 +155,7 @@ $(document).ready(() => {
     if (score <= 0 || score == "") {
       score = "?"
     } else if (score > 10) {
-      score = "10"
+      return alert('Score inválido')
     }
 
     if (episodios <= 0 || episodios == "") episodios = "Indefinido"
@@ -208,6 +209,8 @@ $(document).ready(() => {
 
       listaAnimes.length = 0;
       listaAnimes.push(...newListaAnimes)
+
+      localStorage.setItem('listaAnimes', JSON.stringify(listaAnimes))
 
       $('#div-animes').html(listar(listaAnimes))
 

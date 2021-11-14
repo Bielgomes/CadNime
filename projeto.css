@@ -4,6 +4,10 @@
   --color-anime: #170B20;
 }
 
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
 body {
   background-color: #170B20;
   color: white;
