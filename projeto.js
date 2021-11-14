@@ -56,18 +56,20 @@ function cadastrar(objeto, lista) {
 
 function getStars(score) {
   let auxScore = ''
-  let AuxStarOutline = 9
+  let auxStars = 10
 
   score = parseFloat(score)
 
-  for (let i = 0; i < score; i++) {
+  for (let i = 0; i < Math.round(score); i++) {
     auxScore += '<ion-icon name="star"></ion-icon>'
+    auxStars -= 1
   }
+  console.log(Number(score))
   if (Number(score) === score && score % 1 !== 0) {
     auxScore += '<ion-icon name="star-half"></ion-icon>'
-    AuxStarOutline -= 1
+    auxStars -= 1
   }
-  for (let i = score; i < AuxStarOutline; i++) {
+  for (let i = 0; i < auxStars; i++) {
     auxScore += '<ion-icon name="star-outline"></ion-icon>'
   }
 
