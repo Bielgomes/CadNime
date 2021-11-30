@@ -11,6 +11,22 @@ class Anime {
   }
 }
 
+class Storage {
+  constructor() {
+    this.key = "listaAnimes";
+  }
+
+  getItem() {
+    return localStorage.getItem(this.key) ? JSON.parse(localStorage.getItem(this.key)) : listaAnimes
+  }
+
+  setItem(lista) {
+    localStorage.setItem(this.key, JSON.stringify(lista))
+  }
+}
+
+const storage = new Storage()
+
 var listaAnimes = []
 
 function capitalize(string) {
@@ -21,13 +37,13 @@ function limparCampos() {
   $('input').val('')
   $('textarea').val('')
   $('#btnSalvar').text("Cadastrar")
-  $('#btnSalvar').removeAttr('data-edit')
+  $('#btnSalvar').removeAttr('rel')
+  $('#btnCancelar').hide()
 }
 
 function cadastrar(objeto, lista) {
   lista.push(objeto)
-
-  localStorage.setItem('listaAnimes', JSON.stringify(lista))
+  storage.setItem(lista)
 }
 
 function getStars(score) {
@@ -36,7 +52,7 @@ function getStars(score) {
 
   score = parseFloat(score)
 
-  for (let i = 0; i < Math.round(score); i++) {
+  for (let i = 0; i < Math.trunc(score); i++) {
     auxScore += '<ion-icon name="star"></ion-icon>'
     auxStars -= 1
   }
@@ -55,10 +71,10 @@ function listar(lista) {
   let auxHtml = ''
 
   lista.forEach((element, id) => {
-    if (element.categoria != "anime") {
-      aux = "Capitulos"
-    } else {
+    if (element.categoria == "anime") {
       aux = "Episódios"
+    } else {
+      aux = "Capitulos"
     }
 
     let auxGeneros = element.generos.split(",")
@@ -96,8 +112,8 @@ function listar(lista) {
         <p>Sinopse<br>${element.sinopse}</p>
       </div>
       <div class="btns-animes">
-        <button class="btn btn-outline-warning btn-animes edit" data-edit="${id}"><ion-icon name="pencil-outline"></ion-icon></button>
-        <button class="btn btn-outline-danger btn-animes delete" data-delete="${id}"><ion-icon name="close-outline"></ion-icon></button>
+        <button class="btn btn-outline-warning btn-animes edit" rel="${id}"><ion-icon name="pencil-outline"></ion-icon></button>
+        <button class="btn btn-outline-danger btn-animes delete" rel="${id}"><ion-icon name="close-outline"></ion-icon></button>
       </div>
       </div>
     `
@@ -107,15 +123,13 @@ function listar(lista) {
 }
 
 $(document).ready(() => {
-  listaAnimes = localStorage.getItem('listaAnimes') ? JSON.parse(localStorage.getItem('listaAnimes')) : listaAnimes
+  listaAnimes = storage.getItem()
 
   $('#div-animes').html(listar(listaAnimes))
 
-  addEvent()
+  $('#btnSalvar').click( function() {    
+    const id = Number($(this).attr('rel'))
 
-  $('#btnSalvar').click((element) => {
-    const index = Number(element.target.dataset.edit)
-    
     let titulo = $('#titulo').val()
     let ano = $('#ano').val()
     if (ano < 1900 || ano > 2100) return alert('Ano inválido')
@@ -128,9 +142,9 @@ $(document).ready(() => {
 
     if (image == "") image = "./assets/no-image.png"
 
-    if (score <= 0 || score == "") {
+    if (score == "") {
       score = "?"
-    } else if (score > 10) {
+    } else if (score > 10 || score <= 0 || isNaN(score)) {
       return alert('Score inválido')
     }
 
@@ -141,61 +155,50 @@ $(document).ready(() => {
     if (titulo != "" && ano != "" && generos != "") {
       let anime = new Anime(titulo, ano, episodios, generos, categorias, score, image, sinopse)
 
-      if (isNaN(index)) {
+      if (isNaN(id)) {
         cadastrar(anime, listaAnimes)
       } else {
-        listaAnimes[index] = anime
+        listaAnimes[id] = anime
       }
 
       $('#div-animes').html(listar(listaAnimes))
 
-      addEvent()
-
       limparCampos()
     } else {
-      alert('Preencha os campos obrigatórios')
+      alert('Preencha todos os campos obrigatórios')
     }
   })
 
-  function addEvent() {
-    $("button.edit").click((element) => {
-      const index = Number(element.target.dataset.edit)
-      let anime = listaAnimes[index]
-      
-      $('#titulo').val(anime.titulo)
-      $('#ano').val(anime.ano)
-      $('#episodios').val(anime.episodios)
-      $('#generos').val(anime.generos)
-      $('#categoria').val(anime.categoria)
-      $('#score').val(anime.score)
-      $('#image').val(anime.image)
-      $('#sinopse').val(anime.sinopse)
+  $('#div-animes').on('click', '.edit', function() {
+    let id = $(this).attr('rel')
 
-      $('#btnSalvar').attr('data-edit', index)
-      $('#btnSalvar').text("Editar")
-    })
+    $('#titulo').val(listaAnimes[id].titulo)
+    $('#ano').val(listaAnimes[id].ano)
+    $('#episodios').val(listaAnimes[id].episodios)
+    $('#generos').val(listaAnimes[id].generos)
+    $('#categoria').val(listaAnimes[id].categoria)
+    $('#score').val(listaAnimes[id].score)
+    $('#image').val(listaAnimes[id].image)
+    $('#sinopse').val(listaAnimes[id].sinopse)
 
-    $("button.delete").click((element) => {
-      const index = Number(element.target.dataset.delete)
+    $('#btnSalvar').text("Editar")
+    $('#btnSalvar').attr('rel', id)
+    $('#btnCancelar').show()
+  })
 
-      const newListaAnimes = listaAnimes.filter((e,i) => i !== index)
-
-      listaAnimes.length = 0;
-      listaAnimes.push(...newListaAnimes)
-
-      localStorage.setItem('listaAnimes', JSON.stringify(listaAnimes))
-
+  $('#div-animes').on('click', '.delete', function() {
+    if(confirm('Deseja realmente excluir?')) {
+      let id = $(this).attr('rel')
+      listaAnimes.splice(id, 1)
+      storage.setItem(listaAnimes)
       $('#div-animes').html(listar(listaAnimes))
+      if ($('#btnSalvar').attr('rel') == id) {
+        limparCampos()
+      }
+    }
+  })
 
-      addEvent()
-
-      const edit = Number($('#btnSalvar').attr('data-edit'))
-
-      if (edit == index) limparCampos()
-    })
-  }
-  function imageError() {
-    $('#image').attr('src', './assets/no-image.png')
-  }
+  $('#btnCancelar').click(() => {
+    limparCampos()
+  })
 })
-
