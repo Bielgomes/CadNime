@@ -10,4 +10,4 @@ Projeto Final da disciplina de programação de scripts na FATEC TQ.
 - Jquery
 
 ## Links
-<a href="https://bielgomes.github.io/projeto-programacao-scripts/">Acesse a aplicação</a>
+<a href="https://bielgomes.github.io/CadNime/">Acesse a aplicação</a>
