@@ -1,5 +1,5 @@
 # CadNime
-<img src="https://i.imgur.com/EokBXSt.gif">
+<img src="https://i.imgur.com/jdsMS2Y.gif">
 Projeto Final da disciplina de programação de scripts na FATEC TQ.
 
 ## Funcionalidades
